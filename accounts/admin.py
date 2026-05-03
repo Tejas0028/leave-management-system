@@ -41,7 +41,7 @@ class CustomUserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ('email', 'first_name', 'last_name', 'role', 'is_staff')
+    list_display = ('email', 'first_name', 'last_name', 'role')
     list_filter = ('role', 'is_staff', 'is_active')
     search_fields = ('email',)
     ordering = ('email',)

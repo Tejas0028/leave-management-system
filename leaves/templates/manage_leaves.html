@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="mb-4" style="color:#7ae852;">Manage Leave Requests</h3>
+
+<table class="table table-dark table-striped">
+
+    <thead>
+        <tr>
+            <th>Employee</th>
+            <th>Type</th>
+            <th>Dates</th>
+            <th>Status</th>
+            <th>Remarks</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for leave in leaves %}
+        <tr>
+
+            <td>{{ leave.employee.email }}</td>
+
+            <td>{{ leave.get_leave_type_display }}</td>
+
+            <td>
+                {{ leave.start_date }} <br> to <br> {{ leave.end_date }}
+            </td>
+
+            <td>
+                {% if leave.status == 1 %}
+                    <span class="badge bg-warning text-dark">Pending</span>
+                {% elif leave.status == 2 %}
+                    <span class="badge bg-success">Approved</span>
+                {% elif leave.status == 3 %}
+                    <span class="badge bg-danger">Rejected</span>
+                {% endif %}
+            </td>
+
+            <td>{{ leave.manager_remarks|default:"-" }}</td>
+
+            <td>
+                {% if leave.status == 1 %}
+                <form method="POST" action="/leaves/action/{{ leave.id }}/">
+                    {% csrf_token %}
+
+                    <textarea name="remarks" class="form-control mb-2"
+                              placeholder="Add remarks"></textarea>
+
+                    <button name="action" value="approve" class="btn btn-success btn-sm">
+                        Approve
+                    </button>
+
+                    <button name="action" value="reject" class="btn btn-danger btn-sm">
+                        Reject
+                    </button>
+                </form>
+                {% else %}
+                    <span class="text-muted">No action</span>
+                {% endif %}
+            </td>
+
+        </tr>
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="mb-4" style="color:#7ae852;">Apply Leave</h3>
+
+<!-- ERRORS -->
+{% if form.errors %}
+    <div class="alert alert-danger">
+        {{ form.errors }}
+    </div>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label>Leave Type</label>
+        <select name="leave_type" class="form-control">
+            {% for value, label in form.fields.leave_type.choices %}
+                <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Start Date</label>
+        <input type="date" name="start_date" class="form-control"
+               value="{{ form.start_date.value|default:'' }}">
+    </div>
+
+    <div class="mb-3">
+        <label>End Date</label>
+        <input type="date" name="end_date" class="form-control"
+               value="{{ form.end_date.value|default:'' }}">
+    </div>
+
+    <div class="mb-3">
+        <label>Reason</label>
+        <textarea name="reason" class="form-control"
+                  placeholder="Enter reason">{{ form.reason.value|default:'' }}</textarea>
+    </div>
+
+    <button class="btn btn-success">
+        Submit Leave
+    </button>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="mb-4" style="color:#7ae852;">My Leaves</h3>
+
+{% if leaves %}
+
+<table class="table table-dark table-striped">
+
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Status</th>
+            <th>Remarks</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for leave in leaves %}
+        <tr>
+            <td>{{ leave.get_leave_type_display }}</td>
+            <td>{{ leave.start_date }}</td>
+            <td>{{ leave.end_date }}</td>
+
+            <td>
+                {% if leave.status == 1 %}
+                    <span class="badge bg-warning text-dark">Pending</span>
+                {% elif leave.status == 2 %}
+                    <span class="badge bg-success">Approved</span>
+                {% elif leave.status == 3 %}
+                    <span class="badge bg-danger">Rejected</span>
+                {% endif %}
+            </td>
+
+            <td>
+                {{ leave.manager_remarks|default:"-" }}
+            </td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% else %}
+
+<div class="text-center">
+    <p class="text-muted">No leave requests found.</p>
+    <a href="/leaves/apply/" class="btn btn-primary">Apply Leave</a>
+</div>
+
+{% endif %}
+
+{% endblock %}

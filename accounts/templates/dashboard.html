@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="mb-4" style="color:#7ae852;">Dashboard</h3>
+
+<div class="row">
+
+    {% if user.role == 1 %}  <!-- EMPLOYEE -->
+
+        <div class="col-md-6">
+            <div class="p-4 mb-3" style="background:#1F1F1F; border-radius:10px;">
+                <h5 style="color:#FF5722;">Apply Leave</h5>
+                <p class="text-muted">Submit a new leave request.</p>
+                <a href="/leaves/apply/" class="btn btn-primary">Apply</a>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="p-4 mb-3" style="background:#1F1F1F; border-radius:10px;">
+                <h5 style="color:#7ae852;">My Leaves</h5>
+                <p class="text-muted">Track your leave requests.</p>
+                <a href="/leaves/my/" class="btn btn-success">View</a>
+            </div>
+        </div>
+
+    {% elif user.role == 2 %}  <!-- MANAGER -->
+
+        <div class="col-md-6">
+            <div class="p-4 mb-3" style="background:#1F1F1F; border-radius:10px;">
+                <h5 style="color:#d849ff;">Manage Requests</h5>
+                <p class="text-muted">Approve or reject leave requests.</p>
+                <a href="/leaves/manage/" class="btn btn-warning">Manage</a>
+            </div>
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
