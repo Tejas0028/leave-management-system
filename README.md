@@ -55,7 +55,7 @@ leave_management/
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/leave-management-system.git
+git clone https://github.com/Tejas0028/leave-management-system.git
 cd leave-management-system
 
 2. Create Virtual Environment
